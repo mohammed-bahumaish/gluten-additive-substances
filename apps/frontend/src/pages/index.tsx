@@ -29,5 +29,8 @@ WorkInProgress.Layout = Layout
 
 export async function getStaticProps() {
   const initialData = await fetchAll()
-  return { props: { initialData } }
+  return {
+    props: { initialData },
+    revalidate: 10,
+  }
 }

@@ -18,7 +18,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Button, Table, TextInput, useMantineColorScheme } from '@mantine/core'
+import { Table, TextInput, useMantineColorScheme } from '@mantine/core'
+import { useModals } from '@mantine/modals'
 import {
   compareItems,
   RankingInfo,
@@ -26,8 +27,8 @@ import {
 } from '@tanstack/match-sorter-utils'
 import { useEffect, useMemo, useState } from 'react'
 import { Edit, Trash } from 'tabler-icons-react'
-import { useModals } from '@mantine/modals'
 import BlurredButton from './button/BlurredButton'
+import DataForm from './DataForm'
 
 declare module '@tanstack/table-core' {
   interface FilterMeta {
@@ -35,7 +36,7 @@ declare module '@tanstack/table-core' {
   }
 }
 
-interface Item {
+export interface Item {
   _id: string
   number: string
   description: string
@@ -106,6 +107,15 @@ const DataTable = ({
     return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
   }
 
+  const modals = useModals()
+
+  const openContentModal = (item?: Item) => {
+    modals.openModal({
+      title: 'Add Item',
+      children: <DataForm initialValues={item} />,
+    })
+  }
+
   const columns = useMemo<ColumnDef<Item>[]>(
     () => [
       {
@@ -140,38 +150,21 @@ const DataTable = ({
     [colorScheme],
   )
 
-  const modals = useModals()
-
-  const openContentModal = () => {
-    const id = modals.openModal({
-      title: 'Subscribe to newsletter',
-      children: (
-        <>
-          <TextInput
-            label="Your email"
-            placeholder="Your email"
-            data-autofocus
-          />
-          <Button fullWidth onClick={() => modals.closeModal(id)} mt="md">
-            Submit
-          </Button>
-        </>
-      ),
-    })
-  }
-
   if (isAdmin)
     columns.push({
       accessorKey: '_id',
       cell: info => (
         <div className="flex cursor-pointer">
           <Edit
-            size={24}
+            size={20}
             strokeWidth={1}
             color={colorScheme === 'dark' ? '#fff' : '#000'}
+            onClick={() => {
+              openContentModal(info.row.original)
+            }}
           />
           <Trash
-            size={24}
+            size={20}
             strokeWidth={1}
             color={colorScheme === 'dark' ? '#fff' : '#000'}
           />
@@ -215,7 +208,7 @@ const DataTable = ({
           />
         </div>
         {isAdmin && (
-          <BlurredButton onClick={openContentModal} variant="subtle">
+          <BlurredButton onClick={openContentModal as any} variant="subtle">
             Add
           </BlurredButton>
         )}
