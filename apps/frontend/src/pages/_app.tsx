@@ -32,7 +32,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     <>
       <NextNProgress options={{ showSpinner: false, color: '#3adff5' }} />
       <Head>
-        <title>app name</title>
+        <title>🍞 Gluten Additives</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -44,25 +44,12 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
       >
         <MantineProvider
           withNormalizeCSS
-          emotionOptions={{ key: 'mantine' }}
+          withGlobalStyles
           theme={{
             colorScheme,
-            primaryColor: 'cyan',
+            primaryColor: 'green',
             defaultRadius: 5,
             fontFamily: 'Cairo, sans-serif',
-          }}
-          styles={{
-            Table: theme => ({
-              root: {
-                backgroundColor: theme.fn.rgba(
-                  theme.colors[theme.primaryColor]![5],
-                  0.05,
-                ),
-                borderRadius: theme.defaultRadius,
-                overflow: 'hidden',
-                boxShadow: theme.shadows.md,
-              },
-            }),
           }}
         >
           <ModalsProvider>

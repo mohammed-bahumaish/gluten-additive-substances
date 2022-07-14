@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose'
 
 function throwExpression(errorMessage: string): never {
@@ -6,7 +7,7 @@ function throwExpression(errorMessage: string): never {
 
 const url =
   process.env.mongodb ?? throwExpression('define mongodb environment variable')
-if (url) mongoose.connect(url).catch(console.log)
+if (url) mongoose.connect(url).catch(console.error)
 
 const GlutenAdditiveSchema = new mongoose.Schema({
   number: String,

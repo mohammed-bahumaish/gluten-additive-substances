@@ -1,9 +1,7 @@
-import Loader from 'components/common/infinityLoader'
+import Layout from '@/components/common/layout'
 
-const WorkInProgress = () => (
-  <div className="flex flex-col items-center my-8">
-    <Loader variant="lg" />
-  </div>
-)
+const WorkInProgress = () => <p>hey</p>
 
 export default WorkInProgress
+
+WorkInProgress.Layout = Layout
