@@ -1,0 +1,24 @@
+{
+  "name": "infinity-medical-academy",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:migrate": "yarn workspace db prisma migrate dev",
+    "db:build": "yarn workspace db build",
+    "admin:codegen": "yarn workspace admin codegen"
+  },
+  "devDependencies": {
+    "prettier": "^2.6.2",
+    "turbo": "^1.2.11"
+  },
+  "packageManager": "yarn@1.22.15"
+}
