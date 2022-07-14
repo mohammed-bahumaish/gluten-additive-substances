@@ -11,4 +11,4 @@ const app = express()
 app.use('/glutenAdditive', glutenAdditiveRoute)
 
 const port = process.env.PORT || 4000
-app.listen(port, () => console.log('listening at ', port))
+app.listen(port, () => console.log('🚀 Running on port ', port))
