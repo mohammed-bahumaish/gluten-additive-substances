@@ -3,7 +3,10 @@
 import { Loader, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useModals } from '@mantine/modals'
-import { useCreateOneGlutenAdditive } from 'hooks/useGlutenAdditives'
+import {
+  useCreateOneGlutenAdditive,
+  useUpdateOneGlutenAdditive,
+} from 'hooks/useGlutenAdditives'
 import { useQueryClient } from 'react-query'
 import BlurredButton from './button/BlurredButton'
 import { Item } from './DataTable'
@@ -21,6 +24,9 @@ const DataForm = ({ initialValues }: { initialValues?: Item }) => {
   })
 
   const { mutate, isLoading } = useCreateOneGlutenAdditive()
+  const { mutate: updateMutate, isLoading: updateLoading } =
+    useUpdateOneGlutenAdditive()
+
   const queryClient = useQueryClient()
   const modals = useModals()
 
@@ -40,12 +46,19 @@ const DataForm = ({ initialValues }: { initialValues?: Item }) => {
           onSuccess,
         },
       )
+    } else {
+      updateMutate(
+        {
+          ...values,
+        },
+        { onSuccess },
+      )
     }
   }
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)} className="relative">
-      {isLoading && (
+      {(isLoading || updateLoading) && (
         <div className="absolute w-full h-full bg-slate-500 z-50 flex justify-center items-center rounded-xl bg-opacity-50">
           <Loader />
         </div>

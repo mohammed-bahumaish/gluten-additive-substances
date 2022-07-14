@@ -20,15 +20,16 @@ route.post('/', async (req, res) => {
   res.status(200).json({ code: 200, message: 'Item Added Successfully', data })
 })
 
-route.put('/api/data/update/:id', async (req, res) => {
+route.put('/', async (req, res) => {
   const item = {
     number: req.body.number,
     description: req.body.description,
-    category: req.body.description,
-    status: req.body.description,
+    category: req.body.category,
+    status: req.body.status,
   }
   const data = await GlutenAdditiveModel.findByIdAndUpdate(
-    req.params.id,
+    // eslint-disable-next-line no-underscore-dangle
+    req.body._id,
     { $set: item },
     { new: true },
   )
