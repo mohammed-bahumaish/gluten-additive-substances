@@ -1,5 +1,6 @@
-import { Header as MHeader, Text, Title } from '@mantine/core'
+import { Header as MHeader, Text } from '@mantine/core'
 import Link from 'next/link'
+import { BrandGithub } from 'tabler-icons-react'
 
 const Footer = () => (
   <MHeader
@@ -11,8 +12,11 @@ const Footer = () => (
     })}
   >
     <div className="flex justify-center items-center px-10">
-      <Title order={2}>🍞 </Title>
-
+      <Link href="https://github.com/mohammed-gehad/gluten-additive-substances">
+        <div className="bg-slate-50 rounded-full p-1 mx-2 cursor-pointer">
+          <BrandGithub size={30} strokeWidth={1.5} color="#000000" />
+        </div>
+      </Link>{' '}
       <Text>
         Created by{' '}
         <Link href="https://github.com/mohammed-gehad">
