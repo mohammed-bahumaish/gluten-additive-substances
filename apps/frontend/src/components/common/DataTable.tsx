@@ -37,7 +37,7 @@ declare module '@tanstack/table-core' {
 }
 
 export interface Item {
-  _id: string
+  _id?: string
   number: string
   description: string
   category: string
@@ -208,7 +208,7 @@ const DataTable = ({
           />
         </div>
         {isAdmin && (
-          <BlurredButton onClick={openContentModal as any} variant="subtle">
+          <BlurredButton onClick={() => openContentModal()} variant="subtle">
             Add
           </BlurredButton>
         )}

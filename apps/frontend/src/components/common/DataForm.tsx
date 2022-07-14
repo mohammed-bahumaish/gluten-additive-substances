@@ -1,7 +1,10 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/require-default-props */
-import { TextInput } from '@mantine/core'
+import { Loader, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { useModals } from '@mantine/modals'
+import { useCreateOneGlutenAdditive } from 'hooks/useGlutenAdditives'
+import { useQueryClient } from 'react-query'
 import BlurredButton from './button/BlurredButton'
 import { Item } from './DataTable'
 
@@ -17,11 +20,36 @@ const DataForm = ({ initialValues }: { initialValues?: Item }) => {
     initialValues: initialValues ?? emptyValues,
   })
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log({ values })
+  const { mutate, isLoading } = useCreateOneGlutenAdditive()
+  const queryClient = useQueryClient()
+  const modals = useModals()
+
+  const onSuccess = () => {
+    queryClient.invalidateQueries('GlutenAdditives')
+    modals.closeAll()
   }
+
+  const handleSubmit = (values: typeof form.values) => {
+    if (!initialValues) {
+      mutate(
+        {
+          ...values,
+          _id: undefined,
+        },
+        {
+          onSuccess,
+        },
+      )
+    }
+  }
+
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleSubmit)} className="relative">
+      {isLoading && (
+        <div className="absolute w-full h-full bg-slate-500 z-50 flex justify-center items-center rounded-xl bg-opacity-50">
+          <Loader />
+        </div>
+      )}
       <TextInput
         placeholder="Number"
         label="Number"
@@ -47,7 +75,7 @@ const DataForm = ({ initialValues }: { initialValues?: Item }) => {
         {...form.getInputProps('status')}
       />
       <BlurredButton fullWidth mt={5} type="submit">
-        Add
+        Save
       </BlurredButton>
     </form>
   )

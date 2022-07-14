@@ -20,4 +20,21 @@ route.post('/', async (req, res) => {
   res.status(200).json({ code: 200, message: 'Item Added Successfully', data })
 })
 
+route.put('/api/data/update/:id', async (req, res) => {
+  const item = {
+    number: req.body.number,
+    description: req.body.description,
+    category: req.body.description,
+    status: req.body.description,
+  }
+  const data = await GlutenAdditiveModel.findByIdAndUpdate(
+    req.params.id,
+    { $set: item },
+    { new: true },
+  )
+  res
+    .status(200)
+    .json({ code: 200, message: 'Item Updated Successfully', data })
+})
+
 export default route
