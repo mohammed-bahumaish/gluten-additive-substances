@@ -11,11 +11,13 @@
     "dev": "cross-env ts-node-dev --exit-child --transpile-only src/"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.4"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^17.0.14",

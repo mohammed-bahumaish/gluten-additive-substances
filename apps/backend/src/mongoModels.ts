@@ -16,6 +16,8 @@ const GlutenAdditiveSchema = new mongoose.Schema({
   status: String,
 })
 
-export const GlutenAdditiveModel =
-  mongoose.models.GlutenAdditiveModel ||
-  mongoose.model('GlutenAdditiveModel', GlutenAdditiveSchema)
+export const GlutenAdditiveModel = mongoose.model(
+  'modelGlutenAdditive',
+  GlutenAdditiveSchema,
+  'modelData',
+)

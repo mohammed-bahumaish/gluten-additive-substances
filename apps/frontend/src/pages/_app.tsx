@@ -3,24 +3,25 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core'
-import { useColorScheme, useLocalStorage } from '@mantine/hooks'
+import { useLocalStorage } from '@mantine/hooks'
 import { ModalsProvider } from '@mantine/modals'
 import { NotificationsProvider } from '@mantine/notifications'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar'
 import React, { FC } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import '../styles/globals.css'
 
 const Noop: FC<{ children: React.ReactNode }> = ({ children }) => (
   <div>{children}</div>
 )
+const queryClient = new QueryClient()
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
-  const preferredColorScheme = useColorScheme()
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
-    defaultValue: preferredColorScheme,
+    defaultValue: 'dark',
     getInitialValueInEffect: true,
   })
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -29,7 +30,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const Layout = (Component as any).Layout ?? Noop
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <NextNProgress options={{ showSpinner: false, color: '#3adff5' }} />
       <Head>
         <title>🍞 Gluten Additives</title>
@@ -61,7 +62,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
           </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
-    </>
+    </QueryClientProvider>
   )
 }
 
