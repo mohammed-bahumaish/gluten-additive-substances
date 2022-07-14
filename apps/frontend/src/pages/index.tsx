@@ -168,7 +168,7 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 
   return (
     <div className="flex justify-center flex-col items-center m-2">
-      <div className="rounded-3xl  max-w-2xl overflow-hidden">
+      <div className="rounded-3xl  max-w-2xl overflow-hidden my-2">
         <img src="/hero.svg" className="hover:scale-105 duration-100 " />
       </div>
       <DebouncedInput
