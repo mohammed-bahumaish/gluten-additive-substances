@@ -2,6 +2,10 @@
 import { useQuery } from 'react-query'
 import axiosInstance from 'util/axios'
 
-const fetchAll = () => axiosInstance.get('/additive')
-export const FetchAllGlutenAdditives = () =>
-  useQuery(['GlutenAdditives'], () => fetchAll())
+export const fetchAll = () =>
+  axiosInstance.get('/additive').then(res => res.data)
+export const FetchAllGlutenAdditives = ({
+  initialData,
+}: {
+  initialData: any
+}) => useQuery(['GlutenAdditives'], () => fetchAll(), { initialData })
