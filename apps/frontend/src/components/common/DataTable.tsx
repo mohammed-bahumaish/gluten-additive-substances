@@ -141,7 +141,7 @@ const DataTable = ({
       {
         accessorKey: 'status',
         cell: info =>
-          info.getValue() === 'GLUTEN FREE'
+          /free/i.test(info.getValue())
             ? '🟢 GLUTEN FREE'
             : `🟠 ${info.getValue()}`,
         header: () => <span>Status</span>,
