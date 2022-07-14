@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/require-default-props */
@@ -26,9 +27,10 @@ import {
   rankItem,
 } from '@tanstack/match-sorter-utils'
 import { useEffect, useMemo, useState } from 'react'
-import { Edit, Trash } from 'tabler-icons-react'
+import { Edit } from 'tabler-icons-react'
 import BlurredButton from './button/BlurredButton'
 import DataForm from './DataForm'
+import DeleteButton from './DeleteButton'
 
 declare module '@tanstack/table-core' {
   interface FilterMeta {
@@ -163,11 +165,7 @@ const DataTable = ({
               openContentModal(info.row.original)
             }}
           />
-          <Trash
-            size={20}
-            strokeWidth={1}
-            color={colorScheme === 'dark' ? '#fff' : '#000'}
-          />
+          <DeleteButton _id={info.getValue()} />
         </div>
       ),
       header: () => <span>Action</span>,

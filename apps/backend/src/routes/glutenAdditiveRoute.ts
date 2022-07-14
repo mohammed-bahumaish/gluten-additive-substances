@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import express from 'express'
 import { GlutenAdditiveModel } from '../mongoModels'
 
@@ -28,7 +29,6 @@ route.put('/', async (req, res) => {
     status: req.body.status,
   }
   const data = await GlutenAdditiveModel.findByIdAndUpdate(
-    // eslint-disable-next-line no-underscore-dangle
     req.body._id,
     { $set: item },
     { new: true },
@@ -36,6 +36,11 @@ route.put('/', async (req, res) => {
   res
     .status(200)
     .json({ code: 200, message: 'Item Updated Successfully', data })
+})
+
+route.delete('/:id', async (req, res) => {
+  const data = await GlutenAdditiveModel.findByIdAndRemove(req.params.id)
+  res.status(200).json({ code: 200, message: 'Item deleted', deleteItem: data })
 })
 
 export default route
