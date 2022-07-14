@@ -4,7 +4,7 @@ import { GlutenAdditiveModel } from '../mongoModels'
 const route = express.Router()
 route.use(express.json())
 
-route.get('/', async (req, res) => {
+route.get('/', async (_, res) => {
   const result = await GlutenAdditiveModel.find({})
   res.send(result)
 })

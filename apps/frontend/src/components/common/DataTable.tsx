@@ -18,13 +18,16 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Table, TextInput } from '@mantine/core'
+import { Button, Table, TextInput, useMantineColorScheme } from '@mantine/core'
 import {
   compareItems,
   RankingInfo,
   rankItem,
 } from '@tanstack/match-sorter-utils'
 import { useEffect, useMemo, useState } from 'react'
+import { Edit, Trash } from 'tabler-icons-react'
+import { useModals } from '@mantine/modals'
+import BlurredButton from './button/BlurredButton'
 
 declare module '@tanstack/table-core' {
   interface FilterMeta {
@@ -67,15 +70,22 @@ const DebouncedInput = ({
   return (
     <TextInput
       placeholder="Search"
-      className="max-w-2xl w-full"
+      className="w-full"
       value={value}
       onChange={e => setValue(e.target.value)}
     />
   )
 }
 
-const DataTable = ({ data }: { data: any }) => {
+const DataTable = ({
+  data,
+  isAdmin = false,
+}: {
+  data: any
+  isAdmin: boolean
+}) => {
   const [globalFilter, setGlobalFilter] = useState('')
+  const { colorScheme } = useMantineColorScheme()
 
   const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
     const itemRank = rankItem(row.getValue(columnId), value)
@@ -126,8 +136,49 @@ const DataTable = ({ data }: { data: any }) => {
         sortingFn: fuzzySort,
       },
     ],
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [colorScheme],
   )
+
+  const modals = useModals()
+
+  const openContentModal = () => {
+    const id = modals.openModal({
+      title: 'Subscribe to newsletter',
+      children: (
+        <>
+          <TextInput
+            label="Your email"
+            placeholder="Your email"
+            data-autofocus
+          />
+          <Button fullWidth onClick={() => modals.closeModal(id)} mt="md">
+            Submit
+          </Button>
+        </>
+      ),
+    })
+  }
+
+  if (isAdmin)
+    columns.push({
+      accessorKey: '_id',
+      cell: info => (
+        <div className="flex cursor-pointer">
+          <Edit
+            size={24}
+            strokeWidth={1}
+            color={colorScheme === 'dark' ? '#fff' : '#000'}
+          />
+          <Trash
+            size={24}
+            strokeWidth={1}
+            color={colorScheme === 'dark' ? '#fff' : '#000'}
+          />
+        </div>
+      ),
+      header: () => <span>Action</span>,
+    })
 
   const table = useReactTable({
     data,
@@ -156,10 +207,19 @@ const DataTable = ({ data }: { data: any }) => {
 
   return (
     <>
-      <DebouncedInput
-        value={globalFilter ?? ''}
-        onChange={value => setGlobalFilter(String(value))}
-      />
+      <div className="flex w-full max-w-2xl">
+        <div className="flex-1">
+          <DebouncedInput
+            value={globalFilter ?? ''}
+            onChange={value => setGlobalFilter(String(value))}
+          />
+        </div>
+        {isAdmin && (
+          <BlurredButton onClick={openContentModal} variant="subtle">
+            Add
+          </BlurredButton>
+        )}
+      </div>
       <Table className="pt-5 max-w-2xl" striped verticalSpacing="md">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (

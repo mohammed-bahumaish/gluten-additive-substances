@@ -5,7 +5,7 @@ import { forwardRef } from 'react'
 const BlurredButton = forwardRef<HTMLButtonElement, ButtonProps<'button'>>(
   (props, ref) => (
     <Button {...props} className="relative" ref={ref}>
-      <span className="absolute inset-0 bg-cyan-400 blur-md opacity-0 hover:opacity-25" />
+      <span className="absolute inset-0 bg-orange-400 blur-md opacity-0 hover:opacity-25" />
       {props.children}
     </Button>
   ),
