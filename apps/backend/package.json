@@ -5,8 +5,7 @@
   "author": "Mohammed Gehad",
   "main": "dist/index.js",
   "scripts": {
-    "build": "yarn build:reflection && tsc",
-    "build:reflection": "cross-env NEXUS_SHOULD_EXIT_AFTER_REFLECTION=true NODE_ENV=development ts-node --transpile-only src/schema",
+    "build": "tsc",
     "start": "cross-env NODE_ENV=production node ./dist",
     "dev": "cross-env ts-node-dev --exit-child --transpile-only src/"
   },
