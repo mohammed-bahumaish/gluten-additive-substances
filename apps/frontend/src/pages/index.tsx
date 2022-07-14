@@ -20,15 +20,14 @@ import {
 } from '@tanstack/react-table'
 import { fetchAll, FetchAllGlutenAdditives } from 'hooks/useGlutenAdditives'
 
+import InfinityLoader from '@/components/common/infinityLoader'
+import { Table, TextInput } from '@mantine/core'
 import {
   compareItems,
   RankingInfo,
   rankItem,
 } from '@tanstack/match-sorter-utils'
 import { useEffect, useMemo, useState } from 'react'
-import InfinityLoader from '@/components/common/infinityLoader'
-import { Table, TextInput } from '@mantine/core'
-import Image from 'next/image'
 
 declare module '@tanstack/table-core' {
   interface FilterMeta {
