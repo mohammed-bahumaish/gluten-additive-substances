@@ -48,7 +48,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
           withGlobalStyles
           theme={{
             colorScheme,
-            primaryColor: 'green',
+            primaryColor: 'orange',
             defaultRadius: 5,
             fontFamily: 'Cairo, sans-serif',
           }}

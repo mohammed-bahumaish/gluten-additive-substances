@@ -26,6 +26,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import InfinityLoader from '@/components/common/infinityLoader'
 import { Table, TextInput } from '@mantine/core'
+import Image from 'next/image'
 
 declare module '@tanstack/table-core' {
   interface FilterMeta {
@@ -68,7 +69,7 @@ const DebouncedInput = ({
   return (
     <TextInput
       placeholder="Search"
-      className="pt-5 max-w-2xl w-full"
+      className="max-w-2xl w-full"
       value={value}
       onChange={e => setValue(e.target.value)}
     />
@@ -120,7 +121,10 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
       },
       {
         accessorKey: 'status',
-        cell: info => info.getValue(),
+        cell: info =>
+          info.getValue() === 'GLUTEN FREE'
+            ? '🟢 GLUTEN FREE'
+            : `🟠 ${info.getValue()}`,
         header: () => <span>Status</span>,
         sortingFn: fuzzySort,
       },
@@ -162,16 +166,22 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 
   return (
     <div className="flex justify-center flex-col items-center">
+      <div
+        style={{ position: 'relative', width: '672px', height: '405px' }}
+        className="rounded-3xl overflow-hidden my-2 shadow-inner"
+      >
+        <Image
+          src="/hero.svg"
+          layout="fill"
+          objectFit="cover"
+          className="hover:scale-105 duration-100"
+        />
+      </div>
       <DebouncedInput
         value={globalFilter ?? ''}
         onChange={value => setGlobalFilter(String(value))}
       />
-      <Table
-        className="pt-5 max-w-2xl"
-        striped
-        // horizontalSpacing="md"
-        verticalSpacing="md"
-      >
+      <Table className="pt-5 max-w-2xl" striped verticalSpacing="md">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
