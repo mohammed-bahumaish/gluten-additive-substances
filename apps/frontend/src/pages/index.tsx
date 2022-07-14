@@ -229,7 +229,7 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 export default WorkInProgress
 WorkInProgress.Layout = Layout
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const initialData = await fetchAll()
   return { props: { initialData } }
 }
