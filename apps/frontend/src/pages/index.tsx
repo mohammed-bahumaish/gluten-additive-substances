@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-unstable-nested-components */
@@ -166,16 +168,8 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 
   return (
     <div className="flex justify-center flex-col items-center">
-      <div
-        style={{ position: 'relative', width: '672px', height: '405px' }}
-        className="rounded-3xl overflow-hidden my-2 shadow-inner"
-      >
-        <Image
-          src="/hero.svg"
-          layout="fill"
-          objectFit="cover"
-          className="hover:scale-105 duration-100"
-        />
+      <div className="rounded-3xl m-2 max-w-2xl overflow-hidden">
+        <img src="/hero.svg" className="hover:scale-105 duration-100 " />
       </div>
       <DebouncedInput
         value={globalFilter ?? ''}
