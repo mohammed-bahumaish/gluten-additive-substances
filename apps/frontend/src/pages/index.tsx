@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import Layout from '@/components/common/layout'
-import { fetchAll, useFetchAllGlutenAdditives } from 'hooks/useGlutenAdditives'
 import DataTable from '@/components/common/DataTable'
 import InfinityLoader from '@/components/common/infinityLoader'
+import Layout from '@/components/common/layout'
+import { useFetchAllGlutenAdditives } from 'hooks/useGlutenAdditives'
 
 const WorkInProgress = ({ initialData }: { initialData: any }) => {
+  // const { data, isLoading } = useFetchAllGlutenAdditives({ initialData })
   const { data, isLoading } = useFetchAllGlutenAdditives({ initialData })
 
   if (isLoading)
@@ -27,10 +28,10 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 export default WorkInProgress
 WorkInProgress.Layout = Layout
 
-export async function getStaticProps() {
-  const initialData = await fetchAll()
-  return {
-    props: { initialData },
-    revalidate: 10,
-  }
-}
+// export async function getStaticProps() {
+//   const initialData = await fetchAll()
+//   return {
+//     props: { initialData },
+//     revalidate: 10,
+//   }
+// }

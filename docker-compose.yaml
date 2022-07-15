@@ -1,14 +1,18 @@
 version: '3.9'
 services:
-  admin:
+  backend:
     build:
       context: .
       dockerfile: backend.Dockerfile
     ports:
-      - '3000:3000'
-  server:
+      - '4000:4000'
+    environment:
+      - mongodb=mongodb+srv://root:food123123@cluster0.cdw1p.mongodb.net/gluten?retryWrites=true&w=majority
+  frontend:
     build:
       context: .
       dockerfile: frontend.Dockerfile
     ports:
-      - '4000:4000'
+      - '3000:3000'
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
