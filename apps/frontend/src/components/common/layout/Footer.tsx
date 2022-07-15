@@ -24,7 +24,7 @@ const Footer = () => (
         </Link>{' '}
         &{' '}
         <Link href="https://github.com/ahmeddeveloper55">
-          <a>Ahamed Bawazir</a>
+          <a> Ahmed Bawazir</a>
         </Link>{' '}
         @2022
       </Text>
