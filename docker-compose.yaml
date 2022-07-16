@@ -7,7 +7,7 @@ services:
     ports:
       - '4000:4000'
     environment:
-      - mongodb=mongodb+srv://root:food123123@cluster0.cdw1p.mongodb.net/gluten?retryWrites=true&w=majority
+      - mongodb=mongodb+srv://root:gluten123@cluster0.cdw1p.mongodb.net/gluten?retryWrites=true&w=majority
   frontend:
     build:
       context: .
