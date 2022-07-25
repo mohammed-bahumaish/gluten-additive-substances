@@ -28,10 +28,10 @@ const WorkInProgress = ({ initialData }: { initialData: any }) => {
 export default WorkInProgress
 WorkInProgress.Layout = Layout
 
-// export async function getStaticProps() {
-//   const initialData = await fetchAll()
-//   return {
-//     props: { initialData },
-//     revalidate: 10,
-//   }
-// }
+export async function getStaticProps() {
+  const initialData = await fetchAll()
+  return {
+    props: { initialData },
+    revalidate: 10,
+  }
+}
